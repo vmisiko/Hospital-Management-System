@@ -1,0 +1,1834 @@
+<ScreenPharmascist>:
+    calendar: calendar
+    manage_patient:manage_patient
+    
+    BoxLayout:
+        orientation: 'vertical'
+        padding: root.width*0.005,root.height*0.005
+        canvas:
+            Color:
+                rgba:1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        ActionBar:
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: 'Hospital Management System'
+                    with_previous: False
+                ActionButton:
+                    text: "Pharmascist's Panel"
+                    background_down:'1,0,1,0'
+                    
+                ActionGroup:
+                    text: "Account"
+                    mode: 'spinner'
+                    ActionButton:
+                        text: 'Profile'
+                        on_press:root.profile()
+                    ActionButton:
+                        text: 'Log Out'
+                        on_press:root.manager.current='Login'
+
+
+        BoxLayout:
+            orientation:'horizontal'
+            spacing:2
+                
+            BoxLayout:
+                orientation:'vertical'
+                size_hint:(None,None)
+                size:300, self.parent.height  
+                spacing:20
+                
+                BoxLayout:
+                    orientation:'vertical'
+                    
+                    canvas:
+                        Color:
+                            rgba: rgba('#010c47')
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                    
+                    ImageButton:
+                                
+                        source:'assets/hsign.png'  
+                        size_hint:(None,None)
+                        size:(200,80)
+                        
+                    Label:
+                        text:""
+                        size_hint_y:None
+                        height:15
+                        canvas.before:
+                                
+                            Color:
+                                rgba: 1, 1, 1, .2
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y+10, self.width, 0)
+                                                     
+
+                            
+                        
+
+                    GridLayout:
+                        cols :1
+                        spacing:20
+                        row_force_default: True
+                        row_default_height: 40
+                        BoxLayout:
+                            
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/computer.png'  
+                                size_hint_x:None
+                                width:70
+                            Button:
+                                text:"DashBoard"
+                                halign: 'left'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.dashboard()
+
+                        BoxLayout:
+                            
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/patient.png'  
+                                size_hint_x:None
+                                width:70
+                            Button:
+                                text:"Medicine Category"
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.medcategory()
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/pencil.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Manage Medicine "
+                                background_normal:""
+                                background_down:'dark.png'
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.med()
+
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/prescription.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"provide Medication"
+                                background_down:'dark.png'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.medprescription()
+
+                       
+
+                        
+
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/boy.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Profile"
+                                background_normal:""
+                                background_down:'dark.png'
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.profile()
+
+                        
+
+
+
+
+       
+
+  
+                            
+                                          
+##########         """ dynamic part begins here"""    ######################
+
+                                
+         
+            BoxLayout:
+                    
+                BoxLayout:
+                    orientation:'vertical'
+                    
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0, 0, 0, .9
+                            Line:
+                                width: 2.
+                                rectangle: (self.x, self.y, self.width, self.height)
+                        BoxLayout:
+                            id:manage_patient
+                            orientation: 'vertical'
+                            spacing:10
+                            padding:self.height*0.02, self.width*0.02
+
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    size:400,200
+                                    padding:[100,0,0,50]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    ImageButton:
+                                
+                                        source:'assets/computer.png'  
+                                        size_hint_x:None
+                                        width:70
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                    Button:
+                                        text:"DashBoard"
+                                        halign: 'left'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+                                                        
+                                    
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    size:400,200
+                                    padding:[100,0,0,50]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/patient.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Medicine Category"
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+ 
+                            
+                            
+
+
+                                    
+                                
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+
+
+                                                                       
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    padding:[20,0,0,20]
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    
+                                    ImageButton:
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        source:'assets/pencil.png'  
+                                        
+                                        
+                                    Button:
+                                        text:"Manage Medicine "
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    padding:[20,0,0,20]
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/prescription.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Provide Medication"
+                                        background_down:'dark.png'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                    
+
+
+
+
+                               
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    ImageButton:
+                                
+                                        source:'assets/boy.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Profile"
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+    
+                            BoxLayout:
+
+                                orientation:'horizontal'
+                                spacing:20
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    BoxLayout:
+                                        canvas:
+                                            Color:
+                                                rgba: rgba('#010c47')
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                        id: calendar
+                                        
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    BoxLayout:
+                                        size_hint_y:None
+                                        height:40
+                                        canvas:
+                                            Color:
+                                                rgba: rgba("#1c41fd")
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                                
+                                        ImageButton:
+                                            source:'assets/list.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Notice Board"
+                                            color:1,1,1,1
+                                            
+                                    BoxLayout:
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                        ImageButton:
+                                            source:'assets/pencil2.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Yout appointement"
+                                            color:0,0,0,1
+                                        
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            
+
+
+                            Button:
+                                text:'Pharmascist'
+                                on_press:root.manager.current='Nurse'
+                                size_hint:(None,None)
+                                size:(100,50)
+<Pharmdashboard>:
+    calendar:calendar
+    cols:1
+    BoxLayout:
+        BoxLayout:
+            BoxLayout:
+                BoxLayout:
+                    BoxLayout:
+                        BoxLayout:
+                            id:manage_patient
+                            orientation: 'vertical'
+                            spacing:10
+                            padding:self.height*0.02, self.width*0.02
+
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    size:400,200
+                                    padding:[100,0,0,50]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    ImageButton:
+                                
+                                        source:'assets/computer.png'  
+                                        size_hint_x:None
+                                        width:70
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                    Button:
+                                        text:"DashBoard"
+                                        halign: 'left'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+                                                        
+                                    
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    size:400,200
+                                    padding:[100,0,0,50]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/patient.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Medicine Category"
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+ 
+                            
+                            
+
+
+                                    
+                                
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+
+
+                                                                       
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    padding:[20,0,0,20]
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    
+                                    ImageButton:
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        source:'pencil.png'  
+                                        
+                                        
+                                    Button:
+                                        text:"Manage Medicine "
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    padding:[20,0,0,20]
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/prescription.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Provide Medication"
+                                        background_down:'dark.png'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                    
+
+
+
+
+                               
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    ImageButton:
+                                
+                                        source:'assets/boy.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Profile"
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+    
+                            BoxLayout:
+
+                                orientation:'horizontal'
+                                spacing:20
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    BoxLayout:
+                                        canvas:
+                                            Color:
+                                                rgba: rgba('#010c47')
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                        id: calendar
+                                        
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    BoxLayout:
+                                        size_hint_y:None
+                                        height:40
+                                        canvas:
+                                            Color:
+                                                rgba: rgba("#1c41fd")
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                                
+                                        ImageButton:
+                                            source:'assets/list.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Notice Board"
+                                            color:1,1,1,1
+                                            
+                                    BoxLayout:
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                        ImageButton:
+                                            source:'assets/pencil2.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Yout appointement"
+                                            color:0,0,0,1
+                                        
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            
+
+
+                            Button:
+                                text:'Pharmascist'
+                                on_press:root.manager.current='Nurse'
+                                size_hint:(None,None)
+                                size:(100,50)
+<SelectableButton_medcategory>:
+
+    canvas.before:
+        Color:
+            rgba: (.0, 0.9, .1, .3) if self.selected else (1, 1, 1, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_press: app.get_running_app().rv7.popup_callback(self)
+
+<EditMedcategoryPopup>:
+    med_cat : med_cat
+    med_description : med_description
+    cat_id:cat_id
+
+    size_hint:None, None
+    size:300,150
+    background_color:0,0,0,0
+    title_size: 20
+    title_font: "Verdana"
+    size: dp(400), dp(250)
+    auto_dismiss: False
+    background_color:0,0,0,0
+
+    BoxLayout:
+        orientation: "vertical"
+        ScrollView:
+            bar_width: 10
+            bar_color: 1, 0, 0, 1   # red
+            bar_inactive_color: 0, 0, 1, 1   # blue
+            effect_cls: "ScrollEffect"
+            scroll_type: ['bars']
+            size_hint: (dp(1), None)
+
+            GridLayout:
+                cols: 2
+                row_default_height: 30
+                cols_minimum: {0: 100, 1: 300}
+                #spacing: 5, 5
+                padding: [dp(0),dp(10),dp(0),dp(0)]
+                size_hint: (None, None)
+                height: self.minimum_height
+
+                Label:
+                    text: 'ID'
+                    text_size: self.size
+                TextInput:
+                    id:cat_id
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text:'Medicine category'
+                    text_size: self.size
+                TextInput:
+                    id:med_cat
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text:'Description'
+                    text_size: self.size
+
+                TextInput:
+                    id:med_description
+                    text_size: self.size
+                    focus: True
+
+
+        BoxLayout:
+            Button:
+                size_hint: 1, 0.4
+                text: "Save Changes"
+                on_release:
+                    root.update()
+                    root.dismiss()
+            Button:
+                size_hint: 1, 0.4
+                text: "Cancel Changes"
+                on_release: root.dismiss()
+
+
+<Med_Category>:
+    cols:1
+    rv_id: rv
+    #manage_appointment:manage_appointment
+    real_change:real_change
+    BoxLayout:
+
+        BoxLayout:
+
+            GridLayout:
+                cols :1
+                GridLayout:
+                    cols :1
+                    #size_hint_y: 0.3
+
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,.8
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+
+                    Label:
+                        text:"Manage Medicine Category"
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:80
+
+                    Label:
+                        text:""
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:40
+                        canvas.before:
+
+                            Color:
+                                rgba: 0, 0, 0, 1
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y+10, self.width, 0)
+
+                    GridLayout:
+                        cols :1
+                        spacing:20
+
+                        TabbedPanel:
+                            do_default_tab:False
+                            #size_hint_y: 0.7
+                            tab_width: self.parent.width/2 - 150
+
+                            TabbedPanelItem:
+                                text:'Category List'
+                                background_normal:''
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+
+                                GridLayout:
+                                    cols:1
+                                    canvas:
+                                        Color:
+                                            rgba: 1,1,1,.8
+                                        Rectangle:
+                                            pos:self.pos
+                                            size:self.size
+                                    GridLayout:
+                                        cols:3
+                                        size_hint_y:0.1
+
+                                        row_force_default:True
+                                        row_default_height:'40dp'
+                                        Label:
+                                            text:"Search"
+                                            color:0,0,0,1
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+
+                                        TextInput:
+                                            id:real_change
+                                            multiline:False
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+                                            on_text:root.realtime_select()
+
+                                        ImageButton:
+                                            source:'assets/refresh.png'
+                                            size_hint_x:None
+                                            width:"70dp"
+                                            on_press:
+                                                root.get_beds()
+                                                self.source:'assets/dark.png'
+                                            on_release:
+                                                self.source:'assets/refresh.png'
+
+
+                                    GridLayout:
+                                        cols:1
+                                        id:manage_patient
+                                        orientation:'vertical'
+                                        canvas.before:
+                                            Color:
+                                                rgba: 0, 0, 0,1
+                                            Line:
+                                                width:1
+                                                rectangle: (self.x,self.y-5, self.width, self.height)
+
+
+                                        BoxLayout:
+                                            size_hint_y:None
+                                            height:40
+                                            Button:
+                                                text:"NO."
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Name Category"
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Description"
+                                                font_size: 25
+
+
+                                        BoxLayout:
+
+                                            RecycleView:
+                                                id:rv
+                                                bar_width: 10
+                                                bar_color: 1, 0, 0, 1   # red
+                                                bar_inactive_color: 0, 0, 1, 1   # blue
+                                                effect_cls: "ScrollEffect"
+                                                scroll_type: ['bars']
+                                                viewclass: 'SelectableButton_medcategory'
+                                                data:root.data_items
+                                                SelectableRecycleGridLayout:
+                                                    cols:3
+                                                    default_size: None, dp(56)
+                                                    default_size_hint:1, None
+                                                    size_hint_y: None
+                                                    height: self.minimum_height
+                                                    orientation: 'vertical'
+                                                    multiselect: True
+                                                    touch_multiselect: True
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+
+
+                            TabbedPanelItem:
+                                text:'+  Add Category'
+                                background_normal:''
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+
+                                Add_medcategory:
+
+
+
+<Add_medcategory>:
+    med_cat : med_cat
+    med_description : med_description
+    cols:1
+
+
+    canvas:
+        Color:
+            rgba:1,1,1,1
+        Rectangle:
+            pos: self.pos
+            size:self.size
+    GridLayout:
+        cols:2
+        row_force_default:True
+        row_default_height:40
+        spacing:10
+        padding:[0,50,100,0]
+
+
+        Label:
+            text:'Medicine category'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:med_cat
+            multiline:True
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Description'
+            color:0,0,0,1
+            font_size:25
+
+        TextInput:
+            id:med_description
+            size_hint_x:None
+            width:300
+
+
+
+
+
+    BoxLayout:
+        Label:
+            text:''
+            color:0,0,0,1
+            font_size:25
+            size_hint:None,None
+            size:(200,40)
+        Button:
+            text:'Add Medicine Category'
+            size_hint:None,None
+            size:(200,40)
+            on_press: root.validateif()
+
+    Label:
+        text:''
+        color:0,0,0,1
+        font_size:25
+        size_hint:None,None
+        size:(200,40)
+
+############################## manage medicine ###########################
+
+
+<SelectableButton_medicine>:
+
+    canvas.before:
+        Color:
+            rgba: (.0, 0.9, .1, .3) if self.selected else (1, 1, 1, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_press: app.get_running_app().rv8.popup_callback(self)
+
+<EditMedicinePopup>:
+    med_id: med_id
+    med_name:med_name
+    med_cat:med_cat
+    med_description:med_description
+    med_price:med_price
+    med_manufacturer:med_manufacturer
+    med_status:med_qty
+
+    size_hint:None, None
+    size:300,150
+    background_color:0,0,0,0
+    title_size: 20
+    title_font: "Verdana"
+    size: dp(400), dp(250)
+    auto_dismiss: False
+    background_color:0,0,0,0
+
+    BoxLayout:
+        orientation: "vertical"
+        ScrollView:
+            bar_width: 10
+            bar_color: 1, 0, 0, 1   # red
+            bar_inactive_color: 0, 0, 1, 1   # blue
+            effect_cls: "ScrollEffect"
+            scroll_type: ['bars']
+            size_hint: (dp(1), None)
+
+            GridLayout:
+                cols: 2
+                row_default_height: 30
+                cols_minimum: {0: 100, 1: 300}
+                #spacing: 5, 5
+                padding: [dp(0),dp(10),dp(0),dp(0)]
+                size_hint: (None, None)
+                height: self.minimum_height
+
+                Label:
+                    text: 'ID'
+                    text_size: self.size
+                TextInput:
+                    id:med_id
+                    text: ''
+                    text_size: self.size
+                    focus: True
+                    disabled: True
+
+                Label:
+                    text:'Medicine Name'
+                    text_size: self.size
+                TextInput:
+                    id:med_name
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text:'category'
+                    text_size: self.size
+                TextInput:
+                    id:med_cat
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text:'Description'
+                    text_size: self.size
+
+                TextInput:
+                    id:med_description
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text:'Price'
+                    text_size: self.size
+                TextInput:
+                    id:med_price
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text:'Manufacturer'
+                    text_size: self.size
+                TextInput:
+                    id:med_manufacturer
+                    text_size: self.size
+                    focus: True
+
+
+
+                Label:
+                    text:'Quantity'
+                    text_size: self.size
+                TextInput:
+                    id:med_qty
+                    text_size: self.size
+                    focus: True
+
+
+
+
+        BoxLayout:
+            Button:
+                size_hint: 1, 0.4
+                text: "Save Changes"
+                on_release:
+                    root.update()
+                    root.dismiss()
+            Button:
+                size_hint: 1, 0.4
+                text: "Cancel Changes"
+                on_release: root.dismiss()
+
+
+<Manage_med>:
+    cols:1
+    rv_id: rv
+    #manage_appointment:manage_appointment
+    real_change:real_change
+    BoxLayout:
+
+        BoxLayout:
+
+            GridLayout:
+                cols :1
+                GridLayout:
+                    cols :1
+                    #size_hint_y: 0.3
+
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,.8
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+
+                    Label:
+                        text:"Manage Medicine"
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:80
+
+                    Label:
+                        text:""
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:40
+                        canvas.before:
+
+                            Color:
+                                rgba: 0, 0, 0, 1
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y+10, self.width, 0)
+
+                    GridLayout:
+                        cols :1
+                        spacing:20
+
+                        TabbedPanel:
+                            do_default_tab:False
+                            #size_hint_y: 0.7
+                            tab_width: self.parent.width/2 - 150
+
+                            TabbedPanelItem:
+                                text:'Medicine List'
+                                background_normal:''
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+
+                                GridLayout:
+                                    cols:1
+                                    canvas:
+                                        Color:
+                                            rgba: 1,1,1,.8
+                                        Rectangle:
+                                            pos:self.pos
+                                            size:self.size
+                                    GridLayout:
+                                        cols:3
+                                        size_hint_y:0.1
+
+                                        row_force_default:True
+                                        row_default_height:'40dp'
+                                        Label:
+                                            text:"Search"
+                                            color:0,0,0,1
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+
+                                        TextInput:
+                                            id:real_change
+                                            multiline:False
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+                                            on_text:root.realtime_select()
+
+                                        ImageButton:
+                                            source:'assets/refresh.png'
+                                            size_hint_x:None
+                                            width:"70dp"
+                                            on_press:
+                                                root.get_beds()
+                                                self.source:'assets/dark.png'
+                                            on_release:
+                                                self.source:'assets/refresh.png'
+
+
+                                    GridLayout:
+                                        cols:1
+                                        id:manage_patient
+                                        orientation:'vertical'
+                                        canvas.before:
+                                            Color:
+                                                rgba: 0, 0, 0,1
+                                            Line:
+                                                width:1
+                                                rectangle: (self.x,self.y-5, self.width, self.height)
+
+
+                                        BoxLayout:
+                                            size_hint_y:None
+                                            height:40
+                                            Button:
+                                                text:"NO."
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Name Category"
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Description"
+                                                font_size: 25
+
+                                            Button:
+                                                text:"Price"
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Manufacturer"
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Status"
+                                                font_size: 25
+
+
+                                        BoxLayout:
+
+                                            RecycleView:
+                                                id:rv
+                                                bar_width: 10
+                                                bar_color: 1, 0, 0, 1   # red
+                                                bar_inactive_color: 0, 0, 1, 1   # blue
+                                                effect_cls: "ScrollEffect"
+                                                scroll_type: ['bars']
+                                                viewclass: 'SelectableButton_medicine'
+                                                data:root.data_items
+                                                SelectableRecycleGridLayout:
+                                                    cols:6
+                                                    default_size: None, dp(56)
+                                                    default_size_hint:1, None
+                                                    size_hint_y: None
+                                                    height: self.minimum_height
+                                                    orientation: 'vertical'
+                                                    multiselect: True
+                                                    touch_multiselect: True
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+
+
+                            TabbedPanelItem:
+                                text:'+  Add Medicine'
+                                background_normal:''
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+
+                                Add_med:
+
+
+
+<Add_med>:
+    med_name:med_name
+    med_cat:med_cat
+    med_description:med_description
+    med_price:med_price
+    med_manufacturer:med_manufacturer
+    med_status:med_status
+
+    canvas:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+
+    cols:1
+    GridLayout:
+        cols:2
+        row_force_default:True
+        row_default_height:40
+        spacing:10
+        padding:[0,20,100,0]
+
+
+        Label:
+            text:'Name'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:med_name
+            size_hint_x:None
+            width:300
+
+
+        Label:
+            text:'Medicine category'
+            color:0,0,0,1
+            font_size:25
+        Spinner:
+            id:med_cat
+            text:"<Select>"
+            size_hint_x:None
+            width:300
+            values: root.pickType
+
+        Label:
+            text:'Description'
+            color:0,0,0,1
+            font_size:25
+
+        TextInput:
+            id:med_description
+            size_hint_x:None
+            width:300
+        Label:
+            text:'Price'
+            color:0,0,0,1
+            font_size:25
+
+        TextInput:
+            id:med_price
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Manufacturing Company'
+            color:0,0,0,1
+            font_size:25
+
+        TextInput:
+            id:med_manufacturer
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Quantity'
+            color:0,0,0,1
+            font_size:25
+
+        TextInput:
+            id:med_status
+            size_hint_x:None
+            width:300
+
+
+
+
+
+    BoxLayout:
+        Label:
+            text:''
+            color:0,0,0,1
+            font_size:25
+            size_hint:None,None
+            size:dp(200),dp(40)
+        Button:
+            text:'Add Medicine'
+            size_hint:None,None
+            size:dp(200),dp(40)
+            on_press: root.validateif()
+
+    Label:
+        text:''
+        color:0,0,0,1
+        font_size:25
+        size_hint:None,None
+        size:dp(200),dp(40)
+
+
+<Manage_medprescription>:
+    cols:1
+    
+    manage_adding:manage_adding
+    BoxLayout:
+        
+        BoxLayout:
+            
+            GridLayout:
+                cols :1  
+                GridLayout:
+                    cols :1
+                    size_hint_y: 0.3
+                    
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,.8
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                    
+                    Label:
+                        text:"Manage Prescription"
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:80
+
+                    Label:
+                        text:""
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:40
+                        canvas.before:
+                                
+                            Color:
+                                rgba: 0, 0, 0, 1
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y+10, self.width, 0)
+                    
+                    GridLayout:
+                        cols :1
+                        spacing:20
+                        row_force_default:True
+                        row_default_height:40
+                        BoxLayout:
+                            spacing:10
+                            
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 0, 0, 1,1 
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/list.png'  
+                                size_hint:None,None
+                                size:70,40
+                            Button:
+                                text:"Prescription List"
+                                halign: 'left'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint:None,None
+                                size:200,40
+                                on_press:root.return_medprescriptionList()
+
+                            Button:
+                                text:"+Add Prescription"
+                                color:0,0,0,1
+                                halign: 'left'
+                                background_normal:""
+                                background_color: 1,1,1,1
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint:None,None
+                                size:200,40
+                                on_press:root.adding_prescription()
+                                                               
+
+                            Label:
+                                text:"Search"
+                                color:0,0,0,1
+                                font_size: 25
+                                size_hint:None,None
+                                size:(200,40)
+                                            
+                            TextInput:
+                                multiline:False
+                                font_size: 25
+                                size_hint:None,None
+                                size:(200,40)
+
+                        Label:
+                            text:""
+                            color:0,0,0,1
+                            size_hint_y:None
+                            font_size:40
+                            height:20
+
+
+                GridLayout:
+                    cols:1
+                    size_hint_y: 0.7
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,.8
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                    BoxLayout:
+                        id:manage_adding
+                        orientation:'vertical'
+                        canvas.before:
+                                
+                            Color:
+                                rgba: 0, 0, 0,1 
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y-5, self.width, self.height)
+                                                     
+
+                
+                            
+                        
+                            
+
+                        BoxLayout:
+                            size_hint_y:None
+                            height:40
+                            Button:
+                                text:"NO."
+                                font_size: 25
+                                            
+                            Button:
+                                text:"Date"
+                                font_size: 25
+                                    
+
+                            Button:
+                                text:"Patient"
+                                font_size: 25
+                                        
+                                                
+                            Button:
+                                text:"Doctor"
+                                font_size: 25
+                                                
+
+                        BoxLayout:
+                           
+                            RecycleView:
+                                bar_width: 10
+                                bar_color: 1, 0, 0, 1   # red
+                                bar_inactive_color: 0, 0, 1, 1   # blue
+                                effect_cls: "ScrollEffect"
+                                scroll_type: ['bars']
+                                viewclass: 'SelectableButton'
+                                data:[{'text': str(x)} for x in range(50)]
+                                SelectableRecycleGridLayout:
+                                    cols:4
+                                    default_size: None, dp(56)
+                                    default_size_hint:1, None
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                                    orientation: 'vertical'
+                                    multiselect: True
+                                    touch_multiselect: True
+                        Label:
+                            text:""
+                            color:0,0,0,1
+                            font_size: 25
+                            size_hint:None,None
+                            size:(200,40)
+                        
+
+<Add_medprescription>:
+    cols:1
+    BoxLayout:
+        BoxLayout:
+            orientation:"vertical"
+            BoxLayout:
+                orientation:"vertical"
+                GridLayout:
+                    cols:2
+                    row_force_default:True
+                    row_default_height:40
+                    spacing:20
+                    padding:[0,20,100,0]
+                  
+                    
+                    Label:
+                        text:'Doctor'
+                        color:0,0,0,1
+                        font_size:20
+                    TextInput:
+                        id:appoinment_doctor
+                        size_hint_x:None
+                        width:700
+
+                    Label:
+                        text:'Patient'
+                        color:0,0,0,1
+                        font_size:20
+                    TextInput:
+                        id:prescription_patient
+                        multiline:False
+                        size_hint_x:None
+                        width:700
+                        
+                    Label:
+                        text:'Case History'
+                        color:0,0,0,1
+                        font_size:20
+                    TextInput:
+                        id:prescription_history
+                        multiline:True
+                        size_hint:None,None
+                        size:(700,50)
+
+                    Label:
+                        text:'Medication'
+                        color:0,0,0,1
+                        font_size:20
+                    TextInput:
+                        id:prescription_med
+                        multiline:False
+                        size_hint_x:None
+                        width:700
+
+                    
+                    Label:
+                        text:'Medication from \n pharmacist'
+                        color:0,0,0,1
+                        font_size:20
+                    TextInput:
+                        id:prescription_pharm
+                        multiline:True
+                        size_hint:None,None
+                        size:(700,50)
+
+                    Label:
+                        text:'Description'
+                        color:0,0,0,1
+                        font_size:20
+                    TextInput:
+                        id:prescription_med
+                        multiline:False
+                        size_hint:None,None
+                        size:(700,50)
+
+                    Label:
+                        text:'Date'
+                        color:0,0,0,1
+                        font_size:20
+                    TextInput:
+                        id:prescription_date
+                        multiline:False
+                        size_hint:None,None
+                        size:(700,50)
+             
+             
+
+
+
+
+    BoxLayout:
+        Label:
+            text:''
+            color:0,0,0,1
+            font_size:20
+            size_hint:None,None
+            size:(200,40)
+        
+        Button:
+            text:'Add Prescription'
+            size_hint:None,None
+            size:(200,30)
+
+    
+
+            
+    
+
+<Return_medprescriptionList>:
+    BoxLayout:
+        BoxLayout:
+            BoxLayout:
+                BoxLayout:
+                    BoxLayout:
+                        id:manage_prescription
+                        orientation:'vertical'
+                        canvas.before:
+                                
+                            Color:
+                                rgba: 0, 0, 0,1 
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y-5, self.width, self.height)
+                                                     
+
+                
+                            
+                        
+                            
+
+                        BoxLayout:
+                            size_hint_y:None
+                            height:40
+                            Button:
+                                text:"NO."
+                                font_size: 25
+                                            
+                            Button:
+                                text:"Date"
+                                font_size: 25
+                                    
+
+                            Button:
+                                text:"Patient"
+                                font_size: 25
+                                        
+                                                
+                            Button:
+                                text:"Doctor"
+                                font_size: 25
+                                                
+
+                        BoxLayout:
+                           
+                            RecycleView:
+                                bar_width: 10
+                                bar_color: 1, 0, 0, 1   # red
+                                bar_inactive_color: 0, 0, 1, 1   # blue
+                                effect_cls: "ScrollEffect"
+                                scroll_type: ['bars']
+                                viewclass: 'SelectableButton'
+                                data:[{'text': str(x)} for x in range(20)]
+                                SelectableRecycleGridLayout:
+                                    cols:4
+                                    default_size: None, dp(56)
+                                    default_size_hint:1, None
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                                    orientation: 'vertical'
+                                    multiselect: True
+                                    touch_multiselect: True
+                        Label:
+                            text:""
+                            color:0,0,0,1
+                            font_size: 25
+                            size_hint:None,None
+                            size:(200,40)
+                        

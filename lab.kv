@@ -1,0 +1,733 @@
+<ScreenLabaratorist>:
+    calendar: calendar
+    manage_patient:manage_patient
+    BoxLayout:
+        orientation: 'vertical'
+        padding: root.width*0.02,root.height*0.02
+        canvas:
+            Color:
+                rgba:1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        ActionBar:
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: 'Hospital Management System'
+                    with_previous: False
+                ActionButton:
+                    text: "Labaratosist's Panel"
+                    background_down:'1,0,1,0'
+                    
+                ActionGroup:
+                    text: " Account"
+                    mode: 'spinner'
+                    ActionButton:
+                        text: 'Profile'
+                        on_press:root.profile()
+                    ActionButton:
+                        text: 'Log Out'
+                        on_press:root.manager.current='Login'
+
+
+        BoxLayout:
+            orientation:'horizontal'
+            spacing:2
+                
+            BoxLayout:
+                orientation:'vertical'
+                size_hint:(None,None)
+                size:300, self.parent.height  
+                spacing:20
+                
+                BoxLayout:
+                    orientation:'vertical'
+                    
+                    canvas:
+                        Color:
+                            rgba: rgba('#010c47')
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                    
+                    ImageButton:
+                                
+                        source:'assets/hsign.png'  
+                        size_hint:(None,None)
+                        size:(200,80)
+                        
+                    Label:
+                        text:""
+                        size_hint_y:None
+                        height:15
+                        canvas.before:
+                                
+                            Color:
+                                rgba: 1, 1, 1, .2
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y+10, self.width, 0)
+                                                     
+
+                            
+                        
+
+                    GridLayout:
+                        cols :1
+                        spacing:20
+                        row_force_default: True
+                        row_default_height: 40
+                        BoxLayout:
+                            
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/computer.png'  
+                                size_hint_x:None
+                                width:70
+                            Button:
+                                text:"DashBoard"
+                                halign: 'left'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.lab_dashboard()
+
+                        BoxLayout:
+                            
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/patient.png'  
+                                size_hint_x:None
+                                width:70
+                            Button:
+                                text:"Diagnosis Report"
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                       
+                      
+
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/blood2.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Manage Blood Bank"
+                                background_down:'dark.png'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.blood_bank()
+                                
+
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/blood3.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Manage Blood Donor"
+                                background_normal:""
+                                background_down:'dark.png'
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.blood_donor()
+
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/boy.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Profile"
+                                background_normal:""
+                                background_down:'dark.png'
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.profile()
+
+                        
+
+
+
+
+       
+
+  
+                            
+                                          
+##########         """ dynamic part begins here"""    ######################
+
+                                
+         
+            BoxLayout:
+                    
+                BoxLayout:
+                    orientation:'vertical'
+                    
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0, 0, 0, .9
+                            Line:
+                                width: 2.
+                                rectangle: (self.x, self.y, self.width, self.height)
+                        BoxLayout:
+                            id:manage_patient
+                            orientation: 'vertical'
+                            spacing:10
+                            padding:self.height*0.02, self.width*0.02
+
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    size:400,200
+                                    padding:[100,0,0,50]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    ImageButton:
+                                
+                                        source:'assets/computer.png'  
+                                        size_hint_x:None
+                                        width:70
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                    Button:
+                                        text:"DashBoard"
+                                        halign: 'left'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+                                                        
+                                    
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    padding:[100,0,0,50]
+                                    size:400,200
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/patient.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Diagnosis Report"
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+                                        
+
+                                                                        
+
+                               
+
+                            
+                            
+
+
+                                    
+                                
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+                                
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    orientation:"vertical"
+                                    padding:[20,0,0,20]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    ImageButton:
+                                
+                                        source:'assets/blood2.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"View Blood Bank"
+                                        background_down:'dark.png'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/blood3.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                                
+                                    Button:
+                                        text:"Manage Blood Donor"
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    ImageButton:
+                                
+                                        source:'assets/boy.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Profile"
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+    
+                            BoxLayout:
+
+                                orientation:'horizontal'
+                                spacing:20
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    BoxLayout:
+                                        canvas:
+                                            Color:
+                                                rgba: rgba('#010c47')
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                        id: calendar
+                                        
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    BoxLayout:
+                                        size_hint_y:None
+                                        height:40
+                                        canvas:
+                                            Color:
+                                                rgba: rgba("#1c41fd")
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                                
+                                        ImageButton:
+                                            source:'assets/list.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Notice Board"
+                                            color:1,1,1,1
+                                            
+                                    BoxLayout:
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                        ImageButton:
+                                            source:'assets/pencil2.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Yout appointement"
+                                            color:0,0,0,1
+                                        
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            
+
+
+                            Button:
+                                text:'Labaratorist'
+                                on_press:root.manager.current='Accountant'
+                                size_hint:(None,None)
+                                size:(100,50)
+    
+<Labdashboard>:
+    calendar:calendar
+    BoxLayout:
+        BoxLayout:
+            BoxLayout:
+                BoxLayout:
+                    BoxLayout:
+                        BoxLayout:
+                            id:manage_patient
+                            orientation: 'vertical'
+                            spacing:10
+                            padding:self.height*0.02, self.width*0.02
+
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    size:400,200
+                                    padding:[100,0,0,50]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    ImageButton:
+                                
+                                        source:'assets/computer.png'  
+                                        size_hint_x:None
+                                        width:70
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                    Button:
+                                        text:"DashBoard"
+                                        halign: 'left'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+                                                        
+                                    
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    padding:[100,0,0,50]
+                                    size:400,200
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/patient.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Diagnosis Report"
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+                                        
+
+                                                                        
+
+                               
+
+                            
+                            
+
+
+                                    
+                                
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+                                
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    orientation:"vertical"
+                                    padding:[20,0,0,20]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    ImageButton:
+                                
+                                        source:'assets/blood2.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"View Blood Bank"
+                                        background_down:'dark.png'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/blood3.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                                
+                                    Button:
+                                        text:"Manage Blood Donor"
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    ImageButton:
+                                
+                                        source:'assets/boy.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Profile"
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+    
+                            BoxLayout:
+
+                                orientation:'horizontal'
+                                spacing:20
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    BoxLayout:
+                                        canvas:
+                                            Color:
+                                                rgba: rgba('#010c47')
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                        id: calendar
+                                        
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    BoxLayout:
+                                        size_hint_y:None
+                                        height:40
+                                        canvas:
+                                            Color:
+                                                rgba: rgba("#1c41fd")
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                                
+                                        ImageButton:
+                                            source:'assets/list.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Notice Board"
+                                            color:1,1,1,1
+                                            
+                                    BoxLayout:
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                        ImageButton:
+                                            source:'assets/pencil2.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Yout appointement"
+                                            color:0,0,0,1
+                                        
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            
+
+
+                            Button:
+                                text:'Labaratorist'
+                                on_press:root.manager.current='Accountant'
+                                size_hint:(None,None)
+                                size:(100,50)
+    
+
+    

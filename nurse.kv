@@ -1,0 +1,1580 @@
+
+                                
+   
+        
+        
+<ScreenNurse>:
+    calendar: calendar
+    drop_down:drop_down.__self__
+    drop_up:drop_up.__self__
+    manage_patient:manage_patient
+    DropDown:
+        id:drop_up
+        Button:
+            text:'Manage Bed'
+            background_down:'dark.png'
+            background_normal:""
+            background_color: rgba('#003300')
+            font_size: 25
+            size_hint:None,None
+            size:self.texture_size
+            on_press:root.bed()
+
+        Button:
+            text:'Bed allotment'
+            background_down:'dark.png'
+            background_normal:""
+            background_color: rgba('#003300')
+            font_size: 25
+            size_hint:None,None
+            size:self.texture_size
+            on_press:root.allotment_list()
+
+    DropDown:
+        id:drop_down
+        Button:
+            text:'Manage b_bank'
+            background_down:'dark.png'
+            background_normal:""
+            background_color: rgba('#003300')
+            font_size: 25
+            size_hint:None,None
+            size:self.texture_size
+            on_press:root.blood_bank()
+
+        Button:
+            text:'Manage b_Donor'
+            background_down:'dark.png'
+            background_normal:""
+            background_color: rgba('#003300')
+            font_size: 25
+            size_hint:None,None
+            size:self.texture_size
+            on_press:root.blood_donor()
+
+
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: root.width*0.005,root.height*0.005
+        canvas:
+            Color:
+                rgba:1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        ActionBar:
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: 'Hospital Management System'
+                    with_previous: False
+                ActionButton:
+                    text: "Nurse's Panel"
+                    background_down:'1,0,1,0'
+                    
+                ActionGroup:
+                    text: 'Account' 
+                    mode: 'spinner'
+                    ActionButton:
+                        text: 'Profile'
+                        on_press:root.profile()
+                    ActionButton:
+                        text: 'Log Out'
+                        on_press:root.manager.current='Login'
+
+
+        BoxLayout:
+            orientation:'horizontal'
+            spacing:2
+                
+            BoxLayout:
+                orientation:'vertical'
+                size_hint:(None,None)
+                size:300, self.parent.height  
+                spacing:20
+                
+                BoxLayout:
+                    orientation:'vertical'
+                    
+                    canvas:
+                        Color:
+                            rgba: rgba('#010c47')
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                    
+                    ImageButton:
+                                
+                        source:'assets/hsign.png'  
+                        size_hint:(None,None)
+                        size:(200,80)
+                        
+                    Label:
+                        text:""
+                        size_hint_y:None
+                        height:15
+                        canvas.before:
+                                
+                            Color:
+                                rgba: 1, 1, 1, .2
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y+10, self.width, 0)
+                                                     
+
+                            
+                        
+
+                    GridLayout:
+                        cols :1
+                        spacing:20
+                        row_force_default: True
+                        row_default_height: 40
+                        BoxLayout:
+                            
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/computer.png'  
+                                size_hint_x:None
+                                width:70
+                            Button:
+                                text:"DashBoard"
+                                halign: 'left'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.dashboard()
+
+                        BoxLayout:
+                            
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/patient.png'  
+                                size_hint_x:None
+                                width:70
+                            Button:
+                                text:"Patient"
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.patient()
+                        
+
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/bed.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Bed Allotment"
+                                background_down:'dark.png'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_release: 
+                                    if not root.state: drop_up.open(self); root.state = True
+                                    else: drop_up.dismiss(); root.state = False
+                                                        
+
+                        BoxLayout:
+                            
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/blood2.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Blood Bank"
+                                background_down:'dark.png'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_release: 
+                                    if not root.state: drop_down.open(self); root.state = True
+                                    else: drop_down.dismiss(); root.state = False
+                                                        
+                                                                   
+
+
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/clipboard.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Report"
+                                background_normal:""
+                                background_down:'dark.png'
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.report_list()
+
+                        BoxLayout:
+                            canvas.before:
+                                
+                                Color:
+                                    rgba: 1, 1, 1, .2
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+                                                     
+
+                            ImageButton:
+                                
+                                source:'assets/boy.png'  
+                                size_hint_x:None
+                                width:70
+                                
+                            Button:
+                                text:"Profile"
+                                background_normal:""
+                                background_down:'dark.png'
+                                background_color: rgba('#010c47')
+                                font_size: 25
+                                size_hint_x:None
+                                width:200
+                                on_press:root.profile()
+
+                                       
+
+
+
+
+       
+
+  
+                            
+                                          
+##########         """ dynamic part begins here"""    ######################
+
+                                
+         
+            BoxLayout:
+                    
+                BoxLayout:
+                    orientation:'vertical'
+                    
+                    BoxLayout:
+                        canvas:
+                            Color:
+                                rgba: 0, 0, 0, .9
+                            Line:
+                                width: 2.
+                                rectangle: (self.x, self.y, self.width, self.height)
+                        BoxLayout:
+                            id:manage_patient
+                            orientation: 'vertical'
+                            spacing:10
+                            padding:self.height*0.02, self.width*0.02
+
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    ImageButton:
+                                
+                                        source:'assets/computer.png'  
+                                        size_hint_x:None
+                                        width:70
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                    Button:
+                                        text:"DashBoard"
+                                        halign: 'left'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+                                                        
+                                    
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    size_hint:(None,None)
+                                    padding:[20,0,0,20]
+                                    size:250,150
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/patient.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Patient"
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        background_down:'dark.png'
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/bed.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Bed Allotment"
+                                        background_down:'dark.png'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+                                        
+                                        
+
+                                
+                                        
+
+                                                                    
+
+                
+                                
+                            BoxLayout:
+                                orientation:'horizontal'
+                                spacing:10
+                                
+                                
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    orientation:"vertical"
+                                    padding:[20,0,0,20]
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    ImageButton:
+                                
+                                        source:'assets/blood2.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Blood Bank"
+                                        background_down:'dark.png'
+                                        background_normal:""
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+                                    ImageButton:
+                                
+                                        source:'assets/clipboard.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                                
+                                    Button:
+                                        text:"Report"
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+                                BoxLayout:
+                                    size_hint:(None,None)
+                                    size:250,150
+                                    padding:[20,0,0,20]
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    ImageButton:
+                                
+                                        source:'assets/boy.png'  
+                                        size_hint:(None,None)
+                                        size:(70,70)
+                                        
+                                    Button:
+                                        text:"Profile"
+                                        background_normal:""
+                                        background_down:'dark.png'
+                                        background_color: rgba('#010c47')
+                                        font_size: 25
+                                        size_hint:(None,None)
+                                        size:(200,50)
+
+    
+                            BoxLayout:
+
+                                orientation:'horizontal'
+                                spacing:20
+
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+                                    BoxLayout:
+                                        canvas:
+                                            Color:
+                                                rgba: rgba('#010c47')
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                        id: calendar
+                                        
+                                BoxLayout:
+                                    orientation:"vertical"
+                                    canvas:
+                                        Color:
+                                            rgba: 0, 0, 0, .9
+                                        Line:
+                                            width: 2.
+                                            rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                    BoxLayout:
+                                        size_hint_y:None
+                                        height:40
+                                        canvas:
+                                            Color:
+                                                rgba: rgba("#1c41fd")
+                                            Rectangle:
+                                                pos:self.pos
+                                                size:self.size
+                                                
+                                        ImageButton:
+                                            source:'assets/list.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Notice Board"
+                                            color:1,1,1,1
+                                            
+                                    BoxLayout:
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                        ImageButton:
+                                            source:'assets/pencil2.png'  
+                                            size_hint_x:None
+                                            width:70
+
+                                        Label:
+                                            text:"Yout appointement"
+                                            color:0,0,0,1
+                                        
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            
+
+
+                            Button:
+                                text:'Nurse'
+                                on_press:root.manager.current='Labaratorist'
+                                size_hint:(None,None)
+                                size:(100,50)
+
+
+<SelectableButton_blood_manage>:
+
+    canvas.before:
+        Color:
+            rgba: (.0, 0.9, .1, .3) if self.selected else (1, 1, 1, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_press: app.get_running_app().rv6.popup_callback(self)
+
+<EditBloodPopup>:
+    patient_id:patient_id
+    patient_name:patient_name
+    patient_email:patient_email
+    patient_address:patient_address
+    patient_fon:patient_fon
+    patient_sex:patient_sex
+    patient_dob:patient_dob
+    patient_age:patient_age
+    patient_blood:patient_blood
+    size_hint: None, None
+    title_size: 20
+    title_font: "Verdana"
+    size: dp(400), dp(250)
+    auto_dismiss: False
+    background_color:0,0,0,0
+
+    BoxLayout:
+        orientation: "vertical"
+        ScrollView:
+            bar_width: 10
+            bar_color: 1, 0, 0, 1   # red
+            bar_inactive_color: 0, 0, 1, 1   # blue
+            effect_cls: "ScrollEffect"
+            scroll_type: ['bars']
+            size_hint: (dp(1), None)
+
+            GridLayout:
+                cols: 2
+                row_default_height: 30
+                cols_minimum: {0: 100, 1: 300}
+                #spacing: 5, 5
+                padding: [dp(0),dp(10),dp(0),dp(0)]
+                size_hint: (None, None)
+                height: self.minimum_height
+
+                Label:
+                    text: 'ID'
+                    text_size: self.size
+                TextInput:
+                    id: patient_id
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Name'
+                    text_size: self.size
+                TextInput:
+                    id: patient_name
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Email'
+                    text_size: self.size
+                TextInput:
+                    id: patient_email
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Address'
+                    text_size: self.size
+                TextInput:
+                    id: patient_address
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Phone Number'
+                    text_size: self.size
+                TextInput:
+                    id: patient_fon
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Sex'
+                    text_size: self.size
+                TextInput:
+                    id: patient_sex
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Last Donated'
+                    text_size: self.size
+                TextInput:
+                    id: patient_dob
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Age'
+                    text_size: self.size
+                TextInput:
+                    id: patient_age
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Blood'
+                    text_size: self.size
+                TextInput:
+                    id: patient_blood
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+
+        BoxLayout:
+            Button:
+                size_hint: 1, 0.4
+                text: "Save Changes"
+                on_release:
+                    root.update()
+                    root.dismiss()
+            Button:
+                size_hint: 1, 0.4
+                text: "Cancel Changes"
+                on_release: root.dismiss()
+
+
+<Manage_Blood>:
+    cols:1
+    rv_id: rv
+    #manage_appointment:manage_appointment
+    real_change:real_change
+    BoxLayout:
+
+        BoxLayout:
+
+            GridLayout:
+                cols :1
+                GridLayout:
+                    cols :1
+                    #size_hint_y: 0.3
+
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,.8
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+
+                    Label:
+                        text:"Manage Blood"
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:80
+
+                    Label:
+                        text:""
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:40
+                        canvas.before:
+
+                            Color:
+                                rgba: 0, 0, 0, 1
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y+10, self.width, 0)
+
+                    GridLayout:
+                        cols :1
+                        spacing:20
+
+                        TabbedPanel:
+                            do_default_tab:False
+                            #size_hint_y: 0.7
+                            tab_width: self.parent.width/2 - 150
+
+                            TabbedPanelItem:
+                                text:'Blood Donor list'
+                                background_normal:''
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+
+                                GridLayout:
+                                    cols:1
+                                    canvas:
+                                        Color:
+                                            rgba: 1,1,1,.8
+                                        Rectangle:
+                                            pos:self.pos
+                                            size:self.size
+                                    GridLayout:
+                                        cols:3
+                                        size_hint_y:0.1
+
+                                        row_force_default:True
+                                        row_default_height:'40dp'
+                                        Label:
+                                            text:"Search"
+                                            color:0,0,0,1
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+
+                                        TextInput:
+                                            id:real_change
+                                            multiline:False
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+                                            on_text:root.realtime_select()
+
+                                        ImageButton:
+                                            source:'assets/refresh.png'
+                                            size_hint_x:None
+                                            width:"70dp"
+                                            on_press:
+                                                root.get_beds()
+                                                self.source:'assets/dark.png'
+                                            on_release:
+                                                self.source:'assets/refresh.png'
+
+
+                                    GridLayout:
+                                        cols:1
+                                        id:manage_patient
+                                        orientation:'vertical'
+                                        canvas.before:
+                                            Color:
+                                                rgba: 0, 0, 0,1
+                                            Line:
+                                                width:1
+                                                rectangle: (self.x,self.y-5, self.width, self.height)
+
+
+                                        BoxLayout:
+                                            size_hint_y:None
+                                            height:40
+                                            Button:
+                                                text:"NO."
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Name"
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Sex"
+                                                font_size: 25
+
+                                            Button:
+                                                text:"Age"
+                                                font_size: 25
+
+                                            Button:
+                                                text:"Blood Group"
+                                                font_size: 25
+
+                                            Button:
+                                                text:"Last Donated"
+                                                font_size: 25
+
+                                        BoxLayout:
+
+                                            RecycleView:
+                                                id:rv
+                                                bar_width: 10
+                                                bar_color: 1, 0, 0, 1   # red
+                                                bar_inactive_color: 0, 0, 1, 1   # blue
+                                                effect_cls: "ScrollEffect"
+                                                scroll_type: ['bars']
+                                                viewclass: 'SelectableButton_blood_manage'
+                                                data:root.data_items
+                                                SelectableRecycleGridLayout:
+                                                    cols:6
+                                                    default_size: None, dp(56)
+                                                    default_size_hint:1, None
+                                                    size_hint_y: None
+                                                    height: self.minimum_height
+                                                    orientation: 'vertical'
+                                                    multiselect: True
+                                                    touch_multiselect: True
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+
+
+                            TabbedPanelItem:
+                                text:'+  Add Blood'
+                                background_normal:''
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+
+                                Add_blood:
+
+
+
+<Add_blood>:
+    #patient_id:patient_id
+    patient_name:patient_name
+    patient_email:patient_email
+    patient_address:patient_address
+    patient_fon:patient_fon
+    patient_sex:patient_sex
+    patient_dob:patient_dob
+    patient_age:patient_age
+    patient_blood:patient_blood
+
+    cols:1
+
+    canvas:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+    BoxLayout:
+        padding:[10,100,70,0]
+        GridLayout:
+            cols:2
+            row_force_default:True
+            row_default_height:40
+            spacing:20
+            padding:[0,-50,0,0]
+
+
+            Label:
+                text:'Name'
+                color:0,0,0,1
+                font_size:25
+            TextInput:
+                id:patient_name
+                size_hint_x:None
+                width:200
+
+            Label:
+                text:'Email'
+                color:0,0,0,1
+                font_size:25
+            TextInput:
+                id:patient_email
+                multiline:False
+                size_hint_x:None
+                width:200
+
+            Label:
+                text:'Address'
+                color:0,0,0,1
+                font_size:25
+            TextInput:
+                id:patient_address
+                multiline:False
+                size_hint_x:None
+                width:200
+
+            Label:
+                text:'Phone Number'
+                color:0,0,0,1
+                font_size:25
+            TextInput:
+                id:patient_fon
+                multiline:False
+                size_hint_x:None
+                width:200
+        GridLayout:
+            cols:2
+            row_force_default:True
+            row_default_height:40
+            spacing:20
+            padding:[0,-50,0,0]
+            Label:
+                text:'sex'
+                color:0,0,0,1
+                font_size:25
+            Spinner:
+                id:patient_sex
+                multiline:False
+                text:'<Select>'
+                background_color: rgba('#010c47')
+                background_down:'dark.png'
+                size_hint_x:None
+                width:200
+                values:('Male', 'Female')
+
+
+            Label:
+                text:'Age'
+                color:0,0,0,1
+                font_size:25
+
+            TextInput:
+                id:patient_age
+                multiline:False
+                size_hint_x:None
+                width:200
+            Label:
+                text:'Blood Group'
+                color:0,0,0,1
+                font_size:25
+            Spinner:
+                id:patient_blood
+                text: "<select>"
+                multiline:False
+                background_normall:''
+                background_color: rgba('#010c47')
+                background_down:'dark.png'
+                size_hint_x:None
+                width:200
+                values:('A+', 'A-','AB',"B+" , "B-" ,"O+", "O-")
+
+
+            Label:
+                text:'Last Donated'
+                color:0,0,0,1
+                font_size:25
+
+            DatePicker:
+                id:patient_dob
+                pHint: .5,.5
+                font_size:25
+                multiline:False
+                size_hint_x:None
+                width:200
+
+
+
+    GridLayout:
+        cols:2
+        padding:[0,80,0,0]
+        Label:
+            id: patient_add
+            text:''
+            size_hint:None,None
+            size: dp(430), dp(10)
+
+        Button:
+            id: patient_add
+            text:'Add'
+            size_hint:None,None
+            size: dp(180), dp(40)
+            on_press:root.validateif()
+
+<Add_donor>:
+    cols:1
+    GridLayout:
+        cols:2
+        row_force_default:True
+        row_default_height:30
+        spacing:10
+        padding:[0,10,100,0]
+
+
+        Label:
+            text:'Name'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:donor_name
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Email'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:donor_email
+            multiline:True
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Address'
+            color:0,0,0,1
+            font_size:25
+
+        TextInput:
+            id:donor_address
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Phone'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:donor_phone
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'sex'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:donor_sex
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Age'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:donor_age
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Blood Group'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:donor_bloodgroup
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'last Donation'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:donor_lastdonation
+            size_hint_x:None
+            width:300
+
+
+
+
+    BoxLayout:
+        Label:
+            text:''
+            color:0,0,0,1
+            font_size:25
+            size_hint:None,None
+            size:(200,40)
+        Button:
+            text:'Add Donor'
+            size_hint:None,None
+            size:(200,40)
+
+    Label:
+        text:''
+        color:0,0,0,1
+        font_size:25
+        size_hint:None,None
+        size:(200,40)
+
+
+<Return_donorList>:
+    BoxLayout:
+        BoxLayout:
+            BoxLayout:    
+                GridLayout:
+                    cols:1
+                    size_hint_y: 0.7
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,.8
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                    BoxLayout:
+                        id:manage_adding
+                        orientation:'vertical'
+                        canvas.before:
+                                
+                            Color:
+                                rgba: 0, 0, 0,1 
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y-5, self.width, self.height)
+                                                     
+
+                
+                            
+                        
+                            
+
+                        BoxLayout:
+                            size_hint_y:None
+                            height:40
+                            Button:
+                                text:"No"
+                                font_size: 25
+                                
+                            Button:
+                                text:"Name"
+                                font_size: 25
+                                            
+                            Button:
+                                text:"Age"
+                                font_size: 25
+
+                            Button:
+                                text:"Sex"
+                                font_size: 25
+
+                            Button:
+                                text:"Blood Group"
+                                font_size: 25
+
+                            
+
+                            Button:
+                                text:"Last donstion date"
+                                font_size: 25
+
+                            
+                        BoxLayout:
+                           
+                            RecycleView:
+                                bar_width: 10
+                                bar_color: 1, 0, 0, 1   # red
+                                bar_inactive_color: 0, 0, 1, 1   # blue
+                                effect_cls: "ScrollEffect"
+                                scroll_type: ['bars']
+                                viewclass: 'SelectableButton'
+                                data:[{'text': str(x)} for x in range(20)]
+                                SelectableRecycleGridLayout:
+                                    cols:6
+                                    default_size: None, dp(56)
+                                    default_size_hint:1, None
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                                    orientation: 'vertical'
+                                    multiselect: True
+                                    touch_multiselect: True
+                        Label:
+                            text:""
+                            color:0,0,0,1
+                            font_size: 25
+                            size_hint:None,None
+                            size:(200,40)
+                        
+
+<Manage_Bed>:
+    cols:1
+    rv_id: rv
+    #manage_appointment:manage_appointment
+    real_change:real_change
+    BoxLayout:
+
+        BoxLayout:
+
+            GridLayout:
+                cols :1
+                GridLayout:
+                    cols :1
+                    #size_hint_y: 0.3
+
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,.8
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+
+                    Label:
+                        text:"Manage Bed"
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:80
+
+                    Label:
+                        text:""
+                        color:0,0,0,1
+                        size_hint_y:None
+                        font_size:40
+                        height:40
+                        canvas.before:
+
+                            Color:
+                                rgba: 0, 0, 0, 1
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y+10, self.width, 0)
+
+                    GridLayout:
+                        cols :1
+                        spacing:20
+                        #row_force_default:True
+                        #row_default_height:40
+                        TabbedPanel:
+                            do_default_tab:False
+                            #size_hint_y: 0.7
+                            tab_width: self.parent.width/2 - 150
+
+                            TabbedPanelItem:
+                                text:'Bed list'
+                                background_normal:''
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+
+                                GridLayout:
+                                    cols:1
+                                    canvas:
+                                        Color:
+                                            rgba: 1,1,1,.8
+                                        Rectangle:
+                                            pos:self.pos
+                                            size:self.size
+                                    GridLayout:
+                                        cols:3
+                                        size_hint_y:0.1
+
+                                        row_force_default:True
+                                        row_default_height:'40dp'
+                                        Label:
+                                            text:"Search"
+                                            color:0,0,0,1
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+
+                                        TextInput:
+                                            id:real_change
+                                            multiline:False
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+                                            on_text:root.realtime_select()
+
+                                        ImageButton:
+                                            source:'assets/refresh.png'
+                                            size_hint_x:None
+                                            width:"70dp"
+                                            on_press:
+                                                root.get_beds()
+                                                self.source:'assets/dark.png'
+                                            on_release:
+                                                self.source:'assets/refresh.png'
+
+
+                                    GridLayout:
+                                        cols:1
+                                        id:manage_patient
+                                        orientation:'vertical'
+                                        canvas.before:
+                                            Color:
+                                                rgba: 0, 0, 0,1
+                                            Line:
+                                                width:1
+                                                rectangle: (self.x,self.y-5, self.width, self.height)
+
+
+                                        BoxLayout:
+                                            size_hint_y:None
+                                            height:40
+                                            Button:
+                                                text:"NO."
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Bed number"
+                                                font_size: 25
+
+
+                                            Button:
+                                                text:"Room_type"
+                                                font_size: 25
+
+
+
+                                        BoxLayout:
+
+                                            RecycleView:
+                                                id:rv
+                                                bar_width: 10
+                                                bar_color: 1, 0, 0, 1   # red
+                                                bar_inactive_color: 0, 0, 1, 1   # blue
+                                                effect_cls: "ScrollEffect"
+                                                scroll_type: ['bars']
+                                                viewclass: 'SelectableButton_bed'
+                                                data:root.data_items
+                                                SelectableRecycleGridLayout:
+                                                    cols:3
+                                                    default_size: None, dp(56)
+                                                    default_size_hint:1, None
+                                                    size_hint_y: None
+                                                    height: self.minimum_height
+                                                    orientation: 'vertical'
+                                                    multiselect: True
+                                                    touch_multiselect: True
+                                        Label:
+                                            text:""
+                                            color:0,0,0,1
+                                            font_size: 25
+                                            size_hint:None,None
+                                            size:(200,40)
+
+
+                            TabbedPanelItem:
+                                text:'+  Add Bed'
+                                background_normal:''
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+
+
+                                Add_bed:
+
+
+<Add_bed>:
+    cols:1
+    bed_number:bed_number
+    room_type:room_type
+    bed_description:bed_description
+
+    canvas:
+        Color:
+            rgba:1,1,1,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols:2
+        row_force_default:True
+        row_default_height:40
+        spacing:10
+        padding:[0,20,100,0]
+
+
+        Label:
+            text:'Bed no.'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:bed_number
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Room Type'
+            color:0,0,0,1
+            font_size:25
+        TextInput:
+            id:room_type
+            multiline:True
+            size_hint_x:None
+            width:300
+
+        Label:
+            text:'Description'
+            color:0,0,0,1
+            font_size:25
+
+        TextInput:
+            id:bed_description
+            size_hint_x:None
+            width:300
+
+
+
+
+
+    BoxLayout:
+        Label:
+            text:''
+            color:0,0,0,1
+            font_size:25
+            size_hint:None,None
+            size:(200,40)
+
+        Button:
+            text:'Add bed'
+            size_hint:None,None
+            size:(200,40)
+            on_press: root.validateif()
+
+
+    Label:
+        text:''
+        color:0,0,0,1
+        font_size:25
+        size_hint:None,None
+        size:(200,40)
+
+
+<SelectableButton_bed>:
+
+    canvas.before:
+        Color:
+            rgba: (.0, 0.9, .1, .3) if self.selected else (1, 1, 1, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_press: app.get_running_app().rv5.popup_callback(self)
+
+<EditBedPopup>:
+
+    bed_number:bed_number
+    room_type:room_type
+    bed_description:bed_description
+
+    size_hint: None, None
+    title_size: 20
+    title_font: "Verdana"
+    size: dp(400), dp(250)
+    auto_dismiss: False
+    background_color:0,0,0,0
+
+    BoxLayout:
+        orientation: "vertical"
+        ScrollView:
+            bar_width: 10
+            bar_color: 1, 0, 0, 1   # red
+            bar_inactive_color: 0, 0, 1, 1   # blue
+            effect_cls: "ScrollEffect"
+            scroll_type: ['bars']
+            size_hint: (dp(1), None)
+
+            GridLayout:
+                cols: 2
+                row_default_height: 30
+                cols_minimum: {0: 100, 1: 300}
+                #spacing: 5, 5
+                padding: [dp(0),dp(10),dp(0),dp(0)]
+                size_hint: (None, None)
+                height: self.minimum_height
+
+                Label:
+                    text: 'Bed'
+                    text_size: self.size
+                TextInput:
+                    id: bed_number
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Room Type'
+                    text_size: self.size
+                TextInput:
+                    id: room_type
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+                Label:
+                    text: 'Description'
+                    text_size: self.size
+                TextInput:
+                    id: bed_description
+                    text: ''
+                    text_size: self.size
+                    focus: True
+
+
+
+
+        BoxLayout:
+            Button:
+                size_hint: 1, 0.4
+                text: "Save Changes"
+                on_release:
+                    root.update()
+                    root.dismiss()
+            Button:
+                size_hint: 1, 0.4
+                text: "Cancel Changes"
+                on_release: root.dismiss()

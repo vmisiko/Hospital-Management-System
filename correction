@@ -1,0 +1,160 @@
+                 GridLayout:
+                        cols :1
+                        row_force_default:True
+                        row_default_height:'40dp'
+                        BoxLayout:
+                            spacing:10
+
+                            canvas.before:
+
+                                Color:
+                                    rgba: 0, 0, 1,1
+                                Line:
+                                    width:1
+                                    rectangle: (self.x,self.y-5, self.width, 0)
+
+
+                            ImageButton:
+
+                                source:'list.png'
+                                size_hint:None,None
+                                size:70,40
+
+                            Button:
+                                text:"Operation"
+                                halign: 'left'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                on_press:root.refresh()
+
+                            Button:
+                                text:"Birth"
+                                color:0,0,0,1
+                                halign: 'left'
+                                background_normal:""
+                                background_color: 1,1,1,1
+                                background_down:'dark.png'
+                                font_size: 25
+                                size_hint:None,None
+                                size:200,40
+                                on_press:
+                                    root.refresh()
+                                    root.get_report_birth()
+
+                            Button:
+                                text:"Death"
+                                halign: 'left'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+                                on_press:
+                                    root.refresh()
+                                    root.get_report_death()
+
+                            Button:
+                                text:"+Add Report"
+                                halign: 'left'
+                                background_normal:""
+                                background_color: rgba('#010c47')
+                                background_down:'dark.png'
+                                font_size: 25
+
+                                on_press:root.adding_report()
+
+
+                            TextInput:
+                                hint_text:'Search patient'
+                                multiline:False
+                                font_size: 25
+
+
+                        Label:
+                            text:""
+                            color:0,0,0,1
+                            size_hint_y:None
+                            font_size:40
+                            height:20
+
+
+                GridLayout:
+                    cols:1
+                    size_hint_y: 0.7
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,.8
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                    BoxLayout:
+                        id:manage_prescription
+                        orientation:'vertical'
+                        canvas.before:
+
+                            Color:
+                                rgba: 0, 0, 0,1
+                            Line:
+                                width:1
+                                rectangle: (self.x,self.y-5, self.width, self.height)
+
+
+
+
+
+
+
+                        BoxLayout:
+                            size_hint_y:None
+                            height:40
+                            Button:
+                                text:"NO."
+                                font_size: 25
+
+                            Button:
+                                text:"Description"
+                                font_size: 25
+
+
+                            Button:
+                                text:"Date"
+                                font_size: 25
+
+
+                            Button:
+                                text:"Patient"
+                                font_size: 25
+
+                            Button:
+                                text:"Doctor"
+                                font_size: 25
+
+
+                        BoxLayout:
+
+                            RecycleView:
+                                id:rv
+                                bar_width: 10
+                                bar_color: 1, 0, 0, 1   # red
+                                bar_inactive_color: 0, 0, 1, 1   # blue
+                                effect_cls: "ScrollEffect"
+                                scroll_type: ['bars']
+                                viewclass: 'SelectableButton'
+                                data:root.data_items
+                                SelectableRecycleGridLayout:
+                                    cols:5
+                                    default_size: None, dp(56)
+                                    default_size_hint:1, None
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                                    orientation: 'vertical'
+                                    multiselect: True
+                                    touch_multiselect: True
+                        Label:
+                            text:""
+                            color:0,0,0,1
+                            font_size: 25
+                            size_hint:None,None
+                            size:(200,40)
+

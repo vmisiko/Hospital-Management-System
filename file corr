@@ -1,0 +1,201 @@
+
+
+
+                                    TabbedPanelItem:
+
+                                        text:"Prescription"
+                                        width: '200dp'
+                                        size_hint_x: None
+
+
+
+                                        BoxLayout:
+                                            orientation:'vertical'
+                                            padding:['20dp','30dp','20dp','0dp']
+                                            spacing:'20dp'
+
+                                            canvas:
+                                                Color:
+                                                    rgba: 0, 0, 0, .3
+                                                Line:
+                                                    width: 1
+                                                    rectangle: (self.x, self.y, self.width, self.height)
+                                            BoxLayout:
+                                                id:tab_presc
+                                                orientation:'horizontal'
+
+                                                BoxLayout:
+                                                    orientation:'vertical'
+                                                    size_hint_x:tab_presc.size[0]*0.25
+                                                    padding:['0dp','0dp','10dp','10dp']
+                                                    spacing:'20dp'
+
+
+                                                    TextInput:
+                                                        id: symptomsearch_id
+                                                        hint_text:'Search Symptoms'
+                                                        size_hint_y:'30dp'
+                                                        halign:'center'
+                                                        valign:'middle'
+                                                        on_text:root.on_type_validate()
+
+                                                    ScrollView:
+                                                        id:symptom_box
+                                                        bar_width: 10
+                                                        bar_color: 1, 0, 0, 1   # red
+                                                        bar_inactive_color: 0, 0, 1, 1   # blue
+                                                        effect_cls: "ScrollEffect"
+                                                        scroll_type: ['bars']
+                                                        padding:['0dp','0dp','10dp','0dp']
+                                                        size_hint_y:'150dp'
+                                                        canvas:
+                                                            Color:
+                                                                rgba: 0, 0, 0, .3
+                                                            Line:
+                                                                width: 1.5
+                                                                rectangle: (self.x, self.y, self.width, self.height)
+
+
+                                                    Button:
+                                                        text: 'Get Diagnosis'
+                                                        size_hint_y:'40dp'
+                                                        on_press: root.getcheckboxes_active()
+
+                                                BoxLayout:
+                                                    orientation:'vertical'
+                                                    size_hint_x:tab_presc.size[0]*0.25
+                                                    padding:['0dp','0dp','10dp','10dp']
+                                                    spacing:'20dp'
+
+                                                    TextInput:
+                                                        id:diagnosearch_id
+                                                        hint_text:'Search Diagnosis'
+                                                        size_hint_y:'30dp'
+                                                        halign:'center'
+                                                        valign:'middle'
+                                                        on_text: root.on_type_validate_diag()
+
+                                                    ScrollView:
+                                                        id:diagnosis_box
+                                                        bar_width: 10
+                                                        bar_color: 1, 0, 0, 1   # red
+                                                        bar_inactive_color: 0, 0, 1, 1   # blue
+                                                        effect_cls: "ScrollEffect"
+                                                        scroll_type: ['bars']
+                                                        size_hint_y:'150dp'
+                                                        padding:['0dp','0dp','10dp','0dp']
+                                                        canvas:
+                                                            Color:
+                                                                rgba: 0, 0, 0, .3
+                                                            Line:
+                                                                width: 1
+                                                                rectangle: (self.x, self.y, self.width, self.height)
+
+                                                    Button:
+                                                        text: 'Get Medicine'
+                                                        size_hint_y:'40dp'
+
+                                                BoxLayout:
+                                                    orientation:'vertical'
+                                                    size_hint_x:tab_presc.size[0]*0.25
+                                                    padding:['0dp','0dp','10dp','10dp']
+                                                    spacing:'20dp'
+
+                                                    TextInput:
+                                                        hint_text:'Search Medicine'
+                                                        size_hint_y:'30dp'
+                                                        halign:'center'
+                                                        valign:'middle'
+
+                                                    BoxLayout:
+                                                        id:medicine_box
+                                                        size_hint_y:'150dp'
+                                                        canvas:
+                                                            Color:
+                                                                rgba: 0, 0, 0, .3
+                                                            Line:
+                                                                width: 1
+                                                                rectangle: (self.x, self.y, self.width, self.height)
+
+                                                    Button:
+                                                        text: 'Add Prescription'
+                                                        size_hint_y:'40dp'
+
+
+
+
+                                                BoxLayout:
+                                                    orientation:'vertical'
+                                                    size_hint_x:tab_presc.size[0]*0.25
+                                                    padding:['0dp','0dp','10dp','10dp']
+                                                    spacing:'20dp'
+
+                                                    Label:
+                                                        text:'Note For Doctors Only'
+                                                        size_hint_y:'30dp'
+                                                        color:0,0,0,1
+
+                                                    TextInput:
+                                                        id:note_box
+                                                        size_hint_y:'150dp'
+                                                        multiline: True
+                                                        canvas:
+                                                            Color:
+                                                                rgba: 0, 0, 0, .3
+                                                            Line:
+                                                                width: 1
+                                                                rectangle: (self.x, self.y, self.width, self.height)
+
+                                                    Button:
+                                                        text: 'Add note'
+                                                        size_hint_y:'40dp'
+
+                                            BoxLayout:
+                                                orientation:'vertical'
+                                                GridLayout:
+                                                    row_force_default:True
+                                                    row_force_height:'40dp'
+
+                                                    cols:5
+                                                    Label:
+                                                        text:'No.'
+                                                        color:0,0,0,1
+
+                                                    Label:
+                                                        text:'Medicine'
+                                                        color:0,0,0,1
+
+                                                    Label:
+                                                        text:'Dosage'
+                                                        color:0,0,0,1
+                                                    Label:
+                                                        text:'Dosage Note'
+                                                        color:0,0,0,1
+
+                                                    Label:
+                                                        text:'Quantity'
+                                                        color:0,0,0,1
+                                                BoxLayout:
+                                                    padding:['0dp','20dp','0dp',0]
+                                                    RecycleView:
+                                                        bar_width: 10
+                                                        bar_color: 1, 0, 0, 1   # red
+                                                        bar_inactive_color: 0, 0, 1, 1   # blue
+                                                        #effect_cls: "ScrollEffect"
+                                                        scroll_type: ['bars']
+                                                        viewclass: 'SelectableButton_presc'
+                                                        data:[{'text': str(x)} for x in range(100)]
+                                                        SelectableRecycleGridLayout:
+                                                            key_selection: 'selectable'
+                                                            #row_force_default:True
+                                                            #row_force_height:'40dp'
+                                                            cols:5
+                                                            default_size: None, dp(56)
+                                                            default_size_hint:1, None
+                                                            size_hint_y: None
+                                                            height: self.minimum_height
+                                                            orientation: 'vertical'
+                                                            multiselect: True
+                                                            touch_multiselect: True
+
+
